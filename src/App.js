@@ -61,7 +61,10 @@ function App() {
 
   return (
     <div className="container">
-      <Header handleAddForm={() => setShowAddTask(!showAddTask)} />
+      <Header
+        handleAddForm={() => setShowAddTask(!showAddTask)}
+        showAddTask={showAddTask}
+      />
       {showAddTask && <AddTask addTask={addTask} />}
       {tasks.length > 0 ? (
         <Tasks
