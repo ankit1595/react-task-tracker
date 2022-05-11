@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import Button from "./Button";
 
-const Header = ({ title }) => {
-  const handleClick = () => console.log("clicked");
+const Header = ({ title, handleAddForm }) => {
   return (
     <header className="header">
-      <h1> {title}</h1>
-      <Button color={"black"} text="Add" onClick={handleClick} />
+      <h1>{title}</h1>
+      <Button color={"green"} text="Add" onClick={handleAddForm} />
     </header>
   );
 };

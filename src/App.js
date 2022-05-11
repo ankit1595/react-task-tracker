@@ -5,30 +5,8 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false);
 
-  //Add Task
-  const addTask = (task) => {
-    console.log(task)
-    let id=Math.floor(Math.random() * 10000) +1;
-    setTasks([...tasks,{id, ...task}]);
-  }
-
-  //Delete Task
-  const handleDeleteTask = (task) => {
-    const { id } = task;
-    setTasks(tasks.filter((task, index) => task.id !== id)) 
-  }
-  //Toggle Reminder
-  const toggleReminder = (id) => {
-    setTasks(tasks.map((task) => {
-      if(task.id === id){
-        return {...task, reminder: !task.reminder}
-      }
-      else{
-        return task
-      }
-    }));
-  }
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -49,19 +27,51 @@ function App() {
       reminder: true,
     },
   ]);
+  // let isAddClicked = false;
+  // //Add task form
+  // const handleAddForm = () => {
+  //   isAddClicked = !isAddClicked;
+  //   console.log("isAddClicked ", isAddClicked);
+  // };
 
+  //Add Task
+  const addTask = (task) => {
+    console.log(task);
+    let id = Math.floor(Math.random() * 10000) + 1;
+    setTasks([...tasks, { id, ...task }]);
+  };
+
+  //Delete Task
+  const handleDeleteTask = (task) => {
+    const { id } = task;
+    setTasks(tasks.filter((task, index) => task.id !== id));
+  };
+  //Toggle Reminder
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, reminder: !task.reminder };
+        } else {
+          return task;
+        }
+      })
+    );
+  };
 
   return (
     <div className="container">
-      <Header />
-      <AddTask addTask={addTask}/>
-      {tasks.length>0 ? 
-      <Tasks 
-        tasks={tasks} 
-        handleDeleteTask={handleDeleteTask}
-        toggleReminder={toggleReminder} 
-        /> : 
-      'No tasks to show!!!'}
+      <Header handleAddForm={() => setShowAddTask(!showAddTask)} />
+      {showAddTask && <AddTask addTask={addTask} />}
+      {tasks.length > 0 ? (
+        <Tasks
+          tasks={tasks}
+          handleDeleteTask={handleDeleteTask}
+          toggleReminder={toggleReminder}
+        />
+      ) : (
+        "No tasks to show!!!"
+      )}
     </div>
   );
 }
