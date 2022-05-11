@@ -16,13 +16,13 @@ function App() {
     },
     {
       id: 2,
-      text: "Go to Sanket Wedding",
+      text: "Retirement Party",
       day: "Jun 01st at 09:00am",
       reminder: true,
     },
     {
       id: 3,
-      text: "Make matrimony profile",
+      text: "Food shopping",
       day: "May 18th at 04:00pm",
       reminder: true,
     },
