@@ -1,8 +1,18 @@
-import Header from "./components/Header";
-import Tasks from "./components/Tasks";
 import { useState } from "react";
 
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
+
 function App() {
+
+  //Add Task
+  const addTask = (task) => {
+    console.log(task)
+    let id=Math.floor(Math.random() * 10000) +1;
+    setTasks([...tasks,{id, ...task}]);
+  }
+
   //Delete Task
   const handleDeleteTask = (task) => {
     const { id } = task;
@@ -39,9 +49,12 @@ function App() {
       reminder: true,
     },
   ]);
+
+
   return (
     <div className="container">
       <Header />
+      <AddTask addTask={addTask}/>
       {tasks.length>0 ? 
       <Tasks 
         tasks={tasks} 
