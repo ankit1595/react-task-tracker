@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -10,26 +10,23 @@ import About from "./components/About";
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Interview schedule",
-      day: "May 12th at 04:00pm",
-      reminder: false,
-    },
-    {
-      id: 2,
-      text: "Retirement Party",
-      day: "Jun 01st at 09:00am",
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: "Food shopping",
-      day: "May 18th at 04:00pm",
-      reminder: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks();
+      setTasks(tasksFromServer);
+    };
+    getTasks();
+  });
+
+  //Fetch Tasks
+  const fetchTasks = async () => {
+    const res = await fetch("http://localhost:5000/tasks");
+    const data = await res.json();
+    return data;
+  };
+
   // let isAddClicked = false;
   // //Add task form
   // const handleAddForm = () => {
@@ -38,15 +35,26 @@ function App() {
   // };
 
   //Add Task
-  const addTask = (task) => {
-    console.log(task);
-    let id = Math.floor(Math.random() * 10000) + 1;
-    setTasks([...tasks, { id, ...task }]);
+  const addTask = async (task) => {
+    const res = await fetch("http://localhost:5000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(task),
+    });
+
+    const data = await res.json();
+
+    setTasks([...tasks, data]);
+    // let id = Math.floor(Math.random() * 10000) + 1;
+    // setTasks([...tasks, { id, ...task }]);
   };
 
   //Delete Task
-  const handleDeleteTask = (task) => {
+  const handleDeleteTask = async (task) => {
     const { id } = task;
+    await fetch(`http://localhost:5000/tasks/${id}`, { method: "DELETE" });
     setTasks(tasks.filter((task, index) => task.id !== id));
   };
   //Toggle Reminder

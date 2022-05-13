@@ -1,19 +1,22 @@
 {
-  "posts": [
+  "tasks": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "text": "Interview schedule",
+      "day": "May 12th at 04:00pm",
+      "reminder": false
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "text": "Retirement Party",
+      "day": "Jun 01st at 09:00am",
+      "reminder": true
+    },
+    {
+      "text": "ankit",
+      "day": "",
+      "reminder": false,
+      "id": 3
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
